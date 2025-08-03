@@ -1,0 +1,104 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class TaskEntry {
+public:
+    string content;
+    bool isDone;
+
+    TaskEntry(const string& text) : content(text), isDone(false) {}
+};
+
+class ListManager {
+    vector<TaskEntry> entries;
+
+    void showList() const {
+        if (entries.empty()) {
+            cout << "Your task list is empty.\n";
+            return;
+        }
+        cout << "\nTasks:\n";
+        for (size_t i = 0; i < entries.size(); ++i) {
+            cout << i + 1 << ". ";
+            cout << (entries[i].isDone ? "[Completed] " : "[Pending]   ");
+            cout << entries[i].content << "\n";
+        }
+    }
+
+    void addEntry() {
+        cout << "Write a new task: ";
+        string task;
+        getline(cin >> ws, task);
+        entries.emplace_back(task);
+        cout << "Task recorded.\n";
+    }
+
+    void markDone() {
+        if (entries.empty()) {
+            cout << "Nothing to mark done here!\n";
+            return;
+        }
+        showList();
+        cout << "Select task number to mark done: ";
+        int idx; cin >> idx;
+        if (idx < 1 || idx > (int)entries.size()) {
+            cout << "Task number invalid.\n";
+            return;
+        }
+        if (entries[idx - 1].isDone) {
+            cout << "This task was already marked done.\n";
+        } else {
+            entries[idx - 1].isDone = true;
+            cout << "Marked as completed.\n";
+        }
+    }
+
+    void removeEntry() {
+        if (entries.empty()) {
+            cout << "No tasks to remove.\n";
+            return;
+        }
+        showList();
+        cout << "Enter task number to delete: ";
+        int idx; cin >> idx;
+        if (idx < 1 || idx > (int)entries.size()) {
+            cout << "Invalid task number.\n";
+            return;
+        }
+        entries.erase(entries.begin() + idx - 1);
+        cout << "Task removed from list.\n";
+    }
+
+public:
+    void run() {
+        char cmd{};
+        do {
+            cout << "\n-- Task Manager --\n";
+            cout << "[N]ew task\n";
+            cout << "[S]how tasks\n";
+            cout << "[M]ark done\n";
+            cout << "[R]emove task\n";
+            cout << "[Q]uit\n";
+            cout << "Choose command: ";
+            cin >> cmd;
+            cmd = tolower(cmd);
+
+            switch (cmd) {
+                case 'n': addEntry(); break;
+                case 's': showList(); break;
+                case 'm': markDone(); break;
+                case 'r': removeEntry(); break;
+                case 'q': cout << "Exiting program. Bye!\n"; break;
+                default: cout << "Unknown command. Try again.\n";
+            }
+        } while (cmd != 'q');
+    }
+};
+
+int main() {
+    ListManager manager;
+    manager.run();
+    return 0;
+}
