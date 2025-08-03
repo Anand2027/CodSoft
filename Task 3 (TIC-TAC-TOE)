@@ -1,0 +1,103 @@
+#include <iostream>
+using namespace std;
+
+char grid[3][3];
+char activeMark;
+
+void resetGrid() {
+    for(int r = 0; r < 3; r++)
+        for(int c = 0; c < 3; c++)
+            grid[r][c] = ' ';
+}
+
+void printGrid() {
+    cout << "\n";
+    for(int r = 0; r < 3; r++) {
+        cout << " " << grid[r][0] << " | " << grid[r][1] << " | " << grid[r][2] << " \n";
+        if(r < 2) cout << "---|---|---\n";
+    }
+    cout << "\n";
+}
+
+bool victoryCheck() {
+    // Rows & Columns
+    for(int i = 0; i < 3; i++) {
+        if(grid[i][0] == activeMark && grid[i][1] == activeMark && grid[i][2] == activeMark)
+            return true;
+        if(grid[0][i] == activeMark && grid[1][i] == activeMark && grid[2][i] == activeMark)
+            return true;
+    }
+    // Diagonals
+    if(grid[0][0] == activeMark && grid[1][1] == activeMark && grid[2][2] == activeMark)
+        return true;
+    if(grid[0][2] == activeMark && grid[1][1] == activeMark && grid[2][0] == activeMark)
+        return true;
+
+    return false;
+}
+
+bool fullGrid() {
+    for(int r = 0; r < 3; r++)
+        for(int c = 0; c < 3; c++)
+            if(grid[r][c] == ' ')
+                return false;
+    return true;
+}
+
+void swapMark() {
+    activeMark = (activeMark == 'X') ? 'O' : 'X';
+}
+
+void playerTurn() {
+    int x, y;
+    while(true) {
+        cout << "Player " << activeMark << ", select position (row col): ";
+        cin >> x >> y;
+        x--; y--; // zero-based index
+
+        if(x >= 0 && x < 3 && y >= 0 && y < 3) {
+            if(grid[x][y] == ' ') {
+                grid[x][y] = activeMark;
+                break;
+            } else {
+                cout << "Position already occupied. Try again.\n";
+            }
+        } else {
+            cout << "Invalid coordinates. Use numbers between 1 and 3.\n";
+        }
+    }
+}
+
+int main() {
+    char replay = 'y';
+
+    while(replay == 'y' || replay == 'Y') {
+        resetGrid();
+        activeMark = 'X';
+        bool finished = false;
+
+        cout << "=== Tic-Tac-Toe Challenge ===\n";
+        printGrid();
+
+        while(!finished) {
+            playerTurn();
+            printGrid();
+
+            if(victoryCheck()) {
+                cout << "Player " << activeMark << " triumphs! Congrats!\n";
+                finished = true;
+            } else if(fullGrid()) {
+                cout << "It's a stalemate!\n";
+                finished = true;
+            } else {
+                swapMark();
+            }
+        }
+
+        cout << "Play again? (y/n): ";
+        cin >> replay;
+    }
+
+    cout << "Goodbye, and thanks for the game!\n";
+    return 0;
+}
