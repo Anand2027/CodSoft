@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double num1, num2, result;
+    char oprn;
+
+    cout << "Enter 1st number: ";
+    cin >> num1;
+
+    cout << "Enter 2nd number: ";
+    cin >> num2;
+
+    cout << "Choose an operation from (+ , - , * , / ): ";
+    cin >> oprn;
+
+    switch(oprn) {
+        case '+':
+            result = num1 + num2;  // addition
+            cout << "Result: " << result << endl;
+            break;
+        case '-':
+            result = num1 - num2;  // subtraction
+            cout << "Result: " << result << endl;
+            break;
+        case '*':  // multiplication
+            result = num1 * num2;
+            cout << "Result: " << result << endl;
+            break;
+        case '/':  // division
+            if (num2 == 0) {   // by 0
+                cout << "Error: cannot divide by 0." << endl;
+            } else {    // by exceppt 0
+                result = num1 / num2;
+                cout << "Result: " << result << endl;
+            }
+            break;
+        default:
+            cout << "Invalid operation selected. Choose only from (+ , - , * , /) " << endl;   // from another operator
+    }
+
+    return 0;
+}
