@@ -1,0 +1,29 @@
+// GUESSING NUMBER GAME 
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    srand(time(0));
+    int numb = rand() % 100 + 1;
+    int check;
+
+    while (true) {
+        cin >> check;  // enter number
+
+        if (check < numb){
+            cout << "Too low ! try again \n"; // guess it
+         }
+
+        else if (check > numb){
+            cout << "Too high ! try again \n"; // guess it
+        }
+        else {
+            cout << "Correct Guess !! CONGRATULATIONS  you won match..!! \n";  // correct guess
+            break;
+        }
+    }
+    return 0; // return value
+}
