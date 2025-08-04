@@ -7,23 +7,27 @@ using namespace std;
 
 int main() {
     srand(time(0));
-    int numb = rand() % 100 + 1;
-    int check;
+    int number = rand() % 100 + 1;
+    int guess;
+    int attempts = 0;
+
+    cout << "Guess the number between 1 and 100:\n";
 
     while (true) {
-        cin >> check;  // enter number
+        cout << "Enter your guess: ";
+        cin >> guess;
+        attempts++;
 
-        if (check < numb){
-            cout << "Too low ! try again \n"; // guess it
-         }
-
-        else if (check > numb){
-            cout << "Too high ! try again \n"; // guess it
-        }
-        else {
-            cout << "Correct Guess !! CONGRATULATIONS  you won match..!! \n";  // correct guess
+        if (guess < number) {
+            cout << "Too low! Try again.\n";
+        } else if (guess > number) {
+            cout << "Too high! Try again.\n";
+        } else {
+            cout << "Correct Guess!! CONGRATULATIONS, you won the match in " << attempts << " attempts!\n";
             break;
         }
     }
-    return 0; // return value
+
+    return 0;
 }
+
