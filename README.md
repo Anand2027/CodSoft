@@ -1,5 +1,5 @@
 # CodSoft Internship C++ Tasks
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Anand2027/CodSoft.git)
+
 
 This repository contains the C++ source code for tasks completed during the CodSoft internship program. Each task is a console-based application designed to demonstrate fundamental programming concepts and problem-solving skills in C++.
 
