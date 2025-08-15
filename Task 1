@@ -1,33 +1,47 @@
 // GUESSING NUMBER GAME 
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <iostream>   // for input-output (cin, cout)
+#include <cstdlib>    // for rand() and srand()
+#include <ctime>      // for time() to seed the random number generator
 using namespace std;
 
 int main() {
+    // Seed the random number generator with current time
     srand(time(0));
-    int number = rand() % 100 + 1;
-    int guess;
-    int attempts = 0;
+
+    // Generate a random number between 1 and 100
+    int number = rand() % 100 + 1; 
+
+    int guess;       // variable to store user input
+    int attempts = 0; // counter to keep track of how many guesses user made
 
     cout << "Guess the number between 1 and 100:\n";
 
+    // Infinite loop until the user guesses the correct number
     while (true) {
         cout << "Enter your guess: ";
-        cin >> guess;
-        attempts++;
+        cin >> guess;   // take user input
+        attempts++;     // increment attempts count
 
+        // Check if guess is too low
         if (guess < number) {
             cout << "Too low! Try again.\n";
-        } else if (guess > number) {
+        } 
+        // Check if guess is too high
+        else if (guess > number) {
             cout << "Too high! Try again.\n";
-        } else {
-            cout << "Correct Guess!! CONGRATULATIONS, you won the match in " << attempts << " attempts!\n";
-            break;
+        } 
+        // Correct guess case
+        else {
+            cout << "Correct Guess!! 🎉 CONGRATULATIONS, you won the match in " 
+                 << attempts << " attempts!\n";
+            break; // exit the loop once guessed correctly
         }
     }
 
-    return 0;
+    return 0; // End of program
 }
+
+
+
 
